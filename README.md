@@ -9,6 +9,7 @@ Ever-ease is a project that uses an **Arduino-based PID controller** to manage l
 - [Overview](#overview)
 - [Features](#features)
 - [Hardware Requirements](#hardware-requirements)
+- [Development Environment Setup](#development-environment-setup)
 - [How It Works](#how-it-works)
 - [License](#license)
 
@@ -32,7 +33,7 @@ Everest is designed to address laptop overheating issues by intelligently contro
 ## Hardware Requirements
 ![Hardware Design](https://github.com/user-attachments/assets/9b2caf2a-ea04-418c-aa78-6a9f46d860f5)
 
-To implement **Everest**, you will need the following hardware components:
+To implement **Ever-ease**, you will need the following hardware components:
 
 1. **Arduino Board**  
    - Acts as the central controller, running the PID algorithm and handling inputs/outputs.
@@ -53,6 +54,21 @@ To implement **Everest**, you will need the following hardware components:
 
 6. **Wiring and Connectors**  
    - Ensures all components are properly connected for signal and power transmission.
+
+---
+
+## Development Environment Setup
+
+### PlatformIO Extension for VS Code  
+- Install the [PlatformIO IDE](https://platformio.org/install/ide?install=vscode) in **Visual Studio Code** for an easy development environment.  
+- Use it to write, compile, and upload the Arduino-based code to your board.  
+
+### Arduino IDE (Optional)  
+- Alternatively, you can use the [Arduino IDE](https://www.arduino.cc/en/software) to upload the source code.  
+- Note: You cannot clone the repository directly in Arduino IDE. Instead, manually copy the provided source code into a new sketch.  
+
+### Source Code  
+- Clone this repository (for PlatformIO) or copy the provided source code manually (for Arduino IDE).  
 
 ---
 
@@ -79,4 +95,4 @@ You are free to use, modify, and distribute this software for personal or commer
 
 ---
 
-**Achieve Peak Performance"**
+**"Achieve Peak Performance"**
