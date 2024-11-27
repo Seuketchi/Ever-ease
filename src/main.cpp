@@ -1,34 +1,36 @@
 #include <Arduino.h>
 
-int pin1 = 10;
-int pin2 = 11;
-int pin3 = 5;
-int pin4 = 6;
-// int ENB = 6;
-int speed = 255;
+// Motor 1
+int ENA = 5;
+int IN1 = 7;
+int IN2 = 8;
+
+// Motor 2
+int ENB = 3;
+int IN3 = 4;
+int IN4 = 2;
+
+int speed = 200;
 
 void setup()
 {
-  // put your setup code here, to run once:
-  pinMode(pin1, OUTPUT);
-  // pinMode(IN2, OUTPUT);
-  pinMode(pin2, OUTPUT); // pinMode(IN2, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
 
-  // digitalWrite(IN2, LOW);
-
-  //(Optional)
+  pinMode(ENA, OUTPUT);
+  pinMode(ENB, OUTPUT);
 }
 
 void loop()
 {
-  // put your main code here, to run repeatedly:
-  digitalWrite(pin1, HIGH);
-  digitalWrite(pin2, LOW);
-  digitalWrite(pin3, HIGH);
-  digitalWrite(pin4, LOW);
-  // Controlling speed (0 = off and 255 = max speed):
-  //(Optional)
-  // analogWrite(ENA, speed);
-  // analogWrite(ENB, speed);
-  //(Optional)
+  analogWrite(ENA, speed);
+  analogWrite(ENB, speed);
+
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
 }
