@@ -78,13 +78,17 @@ To implement **Ever-ease**, you will need the following hardware components:
    A temperature sensor continuously measures the laptop's temperature and sends the data to the Arduino.
 
 2. **PID Algorithm**  
-   The Arduino calculates the error (difference between the target and actual temperature) and computes the required fan speed using the PID formula.
+   The Arduino calculates the error (difference between the target and actual temperature) and computes the required fan speed using the PID formula. The PID controller works as follows:
+   
+   - **Proportional (P)**: Calculates the error between the target and actual temperature. The larger the error, the faster the fan will spin to bring the temperature down.
+   - **Integral (I)**: Summing up past errors over time, helping eliminate small discrepancies in temperature and ensuring the system corrects persistent issues, if any.
+   - **Derivative (D)**: Measures the rate of change in temperature, predicting trends and adjusting fan speed before the temperature rises excessively, ensuring a proactive cooling response.
 
 3. **Fan Control**  
    The computed fan speed is applied using **PWM (Pulse Width Modulation)** via a transistor or MOSFET to control the cooling fan.
 
 4. **Feedback Loop**  
-   The system dynamically adjusts fan speed based on real-time temperature readings, ensuring stability and optimal cooling.
+   The system dynamically adjusts fan speed based on real-time temperature readings, ensuring stability and optimal cooling. The PID algorithm ensures that the fan reacts precisely to changing temperatures without excessive noise or inefficient power usage.
 
 ---
 
