@@ -1,6 +1,6 @@
 # Ever-ease: Arduino Laptop Cooling System
 
-Ever-ease is a project that uses an **Arduino-based PID controller** to manage laptop cooling effectively. By utilizing temperature sensors for real-time feedback, Everest dynamically adjusts fan speeds to maintain optimal performance and thermal efficiency for your laptop.
+Ever-ease is a project that uses an **Arduino-based PID controller** to manage laptop cooling effectively. By utilizing temperature sensors for real-time feedback, Ever-ease dynamically adjusts fan speeds to maintain optimal performance and thermal efficiency for your laptop.
 
 ---
 
@@ -11,13 +11,17 @@ Ever-ease is a project that uses an **Arduino-based PID controller** to manage l
 - [Hardware Requirements](#hardware-requirements)
 - [Development Environment Setup](#development-environment-setup)
 - [How It Works](#how-it-works)
+- [Testing Results](#testing-results)
+- [Performance Analysis](#performance-analysis)
+- [Safety Considerations](#safety-considerations)
+- [Potential Issues & Future Actions](#potential-issues--future-actions)
 - [License](#license)
 
 ---
 
 ## Overview
 
-Everest is designed to address laptop overheating issues by intelligently controlling cooling fans. Using a **PID (Proportional-Integral-Derivative) controller**, the system measures real-time temperatures through sensors and adjusts the fan speed to maintain a user-defined target temperature.
+Ever-ease is designed to address laptop overheating issues by intelligently controlling cooling fans. Using a **PID (Proportional-Integral-Derivative) controller**, the system measures real-time temperatures through sensors and adjusts the fan speed to maintain a user-defined target temperature.
 
 ---
 
@@ -46,7 +50,7 @@ To implement **Ever-ease**, you will need the following hardware components:
    - A DC fan that serves as the active cooling component.  
    - Controlled via PWM signals for dynamic speed adjustments.
 
-4. **L298N Motor Driver**
+4. **L298N Motor Driver**  
    - Interfaces the Arduino with the cooling fan, enabling precise control of fan speed using PWM signals.
 
 5. **Power Supply (5V)**  
@@ -79,10 +83,28 @@ To implement **Ever-ease**, you will need the following hardware components:
 
 2. **PID Algorithm**  
    The Arduino calculates the error (difference between the target and actual temperature) and computes the required fan speed using the PID formula. The PID controller works as follows:
-   
+
    - **Proportional (P)**: Calculates the error between the target and actual temperature. The larger the error, the faster the fan will spin to bring the temperature down.
    - **Integral (I)**: Summing up past errors over time, helping eliminate small discrepancies in temperature and ensuring the system corrects persistent issues, if any.
    - **Derivative (D)**: Measures the rate of change in temperature, predicting trends and adjusting fan speed before the temperature rises excessively, ensuring a proactive cooling response.
+
+   These constants were fine-tuned through experimentation to balance responsiveness and stability. Further optimization may be necessary based on the laptop’s performance and environmental conditions.
+
+   ### PID Tuning Values
+   The **PID constants** used in this project are as follows:
+
+   - **Proportional (Kp)**: `10.0`
+   - **Integral (Ki)**: `2.0`
+   - **Derivative (Kd)**: `5.0`
+
+   ### Output Limits
+   The fan speed is controlled by Pulse Width Modulation (PWM), and its output is limited to a range of **0-255**, corresponding to the PWM values that control the fan speed. The fan speed should not exceed 100% (PWM = 255) or fall below a certain threshold for optimal operation.
+
+   - **Fan Speed Limits**:
+     - **Minimum**: `PWM = 30` (represents minimal fan activity)
+     - **Maximum**: `PWM = 255` (full-speed operation)
+
+   The limits are applied to prevent the fan from running at insufficient speeds (which would be ineffective for cooling) or excessive speeds (which could cause unnecessary noise and energy waste).
 
 3. **Fan Control**  
    The computed fan speed is applied using **PWM (Pulse Width Modulation)** via a transistor or MOSFET to control the cooling fan.
@@ -92,11 +114,67 @@ To implement **Ever-ease**, you will need the following hardware components:
 
 ---
 
-## License
+### Special Behavior Explanation
 
-This project is licensed under the [MIT License](LICENSE).  
-You are free to use, modify, and distribute this software for personal or commercial purposes.
+- **Preventing Overheating**:  
+   Once the temperature drops below the target **setpoint**, the system does not allow the fan speed to increase above a certain point. This is because there is no heating actuator in the system to raise the temperature back to the setpoint. Therefore, the cooling process stops once the temperature is close to the target, and the fan speed remains low.
+
+- **Avoiding Zero Fan Speed**:  
+   To prevent the fan from turning off completely, which might leave the system without cooling entirely, the PID controller is configured to keep the fan speed above a minimum threshold. Once the system reaches a steady-state temperature, the PID algorithm will only generate small adjustments in fan speed, typically in the range of **0-10** PWM values. At this level, the fan will still spin, but at a very low speed, ensuring that minimal cooling is applied while avoiding fan stasis (which could lead to overheating).
 
 ---
 
-**"Achieve Peak Performance"**
+## Testing Results
+
+![Testing Graph](https://github.com/user-attachments/assets/edc9b302-863f-4d33-aa60-8d33f65e5295)
+
+---
+
+## Performance Analysis
+
+- **Fan Speed Control**: The PID controller responds well to both rapid and gradual changes in temperature, adjusting fan speed accordingly.
+- **Cooling Efficiency**: The system successfully maintains the temperature close to the setpoint with minimal oscillations, demonstrating the effectiveness of the PID algorithm in regulating fan speed.
+- **Power Consumption**: The system optimizes fan usage, only increasing speed when necessary to maintain the target temperature.
+
+---
+
+## Safety Considerations
+
+- **Electrical Safety**: Ensure that the power supply to the Arduino and the cooling fan is stable and within recommended voltage and current ranges to prevent damage.
+- **Fan Overload**: Avoid running the fan at full speed for prolonged periods, as it could overheat. Always test with appropriate fan specifications.
+- **Component Ratings**: Ensure that the components used, such as the motor driver (L298N) and Arduino, are rated for the power requirements of your system to avoid overheating or failure.
+
+---
+
+## Potential Issues & Future Actions
+
+### Reasons the system might not achieve the setpoint:
+1. **Inadequate Fan Power**
+   - The fan may not provide sufficient cooling power to reach the setpoint, especially under heavy loads or high environmental temperatures.
+   - **Action**: Use a more powerful fan or add multiple fans to increase cooling capacity.
+
+2. **Incorrect Temperature Sensor Readings**
+   - If the LM35 sensor is not properly calibrated or is affected by noise, the temperature readings may not be accurate.
+   - **Action**: Calibrate the sensor and use averaging techniques or filtering methods to smooth out readings.
+
+3. **PID Parameter Tuning**
+   - Incorrect PID tuning (e.g., too high or too low KP, KI, or KD values) can result in oscillations or an inability to reach the setpoint.
+   - **Action**: Fine-tune the PID constants using methods like the Ziegler-Nichols approach or trial and error.
+
+4. **Inconsistent Power Supply**
+   - Fluctuations or insufficient voltage in the power supply can affect the performance of the fan or Arduino.
+   - **Action**: Ensure the power supply is stable and meets the voltage and current requirements of the system.
+
+5. **Insufficient Feedback Loop**
+   - The fan may not respond quickly enough to temperature changes, or the PID loop may not be updating frequently enough.
+   - **Action**: Increase the loop update frequency or use a faster response fan.
+
+6. **High Ambient Temperature**
+   - In an environment with high ambient temperatures, the cooling system might struggle to bring the temperature down to the setpoint.
+   - **Action**: Improve airflow around the laptop or add additional cooling solutions like external fans.
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more information.
