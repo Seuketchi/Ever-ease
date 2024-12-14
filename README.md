@@ -128,6 +128,11 @@ To implement **Ever-ease**, you will need the following hardware components:
 
 ![Testing Graph](https://github.com/user-attachments/assets/edc9b302-863f-4d33-aa60-8d33f65e5295)
 
+
+Steady State
+![image](https://github.com/user-attachments/assets/25b97546-73e4-41d8-b213-1e0f4d0ae5e1)
+![image](https://github.com/user-attachments/assets/d405da5e-9800-4626-8e1d-fb4c6dc59453)
+
 ---
 
 ## Performance Analysis
