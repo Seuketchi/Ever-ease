@@ -184,3 +184,10 @@ Steady State
 
 Project photos and video clips can be found in the [Documentation Folder](https://drive.google.com/drive/folders/1XgEvxE-ASJG3Hiq4p9qc1ua79MdXJOUg?usp=sharing).
 
+---
+
+## License
+
+Ever-ease is licensed under the [MIT License](https://github.com/Seuketchi/Ever-ease/tree/main?tab=MIT-1-ov-file). This means you are free to use, modify, and distribute the project under the terms of the license.
+
+
