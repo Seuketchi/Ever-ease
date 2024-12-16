@@ -35,7 +35,7 @@ Ever-ease is designed to address laptop overheating issues by intelligently cont
 ---
 
 ## Hardware Requirements
-![Hardware Design](https://github.com/user-attachments/assets/9b2caf2a-ea04-418c-aa78-6a9f46d860f5)
+![Hardware Design](https://github.com/user-attachments/assets/8c281f8b-9e66-43ef-99c8-f425783ecd85)
 
 To implement **Ever-ease**, you will need the following hardware components:
 
@@ -180,6 +180,7 @@ Steady State
 
 ---
 
-## License
+## Documentation
 
-This project is licensed under the MIT License. See the LICENSE file for more information.
+Project photos and video clips can be found in the [Documentation Folder](https://drive.google.com/drive/folders/1XgEvxE-ASJG3Hiq4p9qc1ua79MdXJOUg?usp=sharing).
+
