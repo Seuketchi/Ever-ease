@@ -1,4 +1,5 @@
 # Ever-ease: Arduino Laptop Cooling System
+![BlockDiagram](https://github.com/user-attachments/assets/5ce6e4c5-8aab-44e9-9d2b-94c736b1b6e3)
 
 Ever-ease is a project that uses an **Arduino-based PID controller** to manage laptop cooling effectively. By utilizing temperature sensors for real-time feedback, Ever-ease dynamically adjusts fan speeds to maintain optimal performance and thermal efficiency for your laptop.
 
@@ -177,6 +178,11 @@ Steady State
 6. **High Ambient Temperature**
    - In an environment with high ambient temperatures, the cooling system might struggle to bring the temperature down to the setpoint.
    - **Action**: Improve airflow around the laptop or add additional cooling solutions like external fans.
+
+
+
+**NOTE:**
+   _The performance of the PID controller may vary depending on the specific hardware components used and the overall system configuration. Factors such as fan specifications, sensor accuracy, and environmental conditions can affect the behavior of the PID algorithm. Fine-tuning the PID parameters (Kp, Ki, and Kd) for your hardware setup is recommended to achieve optimal performance._
 
 ---
 
